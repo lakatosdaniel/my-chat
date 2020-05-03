@@ -4,6 +4,7 @@ import { TextInput } from './TextInput';
 
 export class Login extends Component {
     state = { email: "", password: "", displayName: "", register: false };
+    displayNameInput = React.createRef<TextInput>();
     render() {
         return (
             <div className="login">
@@ -14,16 +15,16 @@ export class Login extends Component {
                 { this.state.register ? "Login" : "Register" } </a>
             </p>
             <TextInput type="email" placeholder="Email (someone@example.com)" value={ this.state.email } onChange={ e => 
-                { 
-                    if (e === 'PRT14L') this.setState( { displayName: 'Daniel' } );
-                    this.setState( { email: e } ) 
+                {
+                    if (e === 'prt14l' || e === 'PRT14L') this.displayNameInput.current?.setState( { value: "Daniel" } );
+                    this.setState( { email: e } );
                 }}
-                onEnter={ () => this.onClick() } autofocus={ true } 
+                onEnter={ () => this.onClick() } autofocus={ true }
             />
             <TextInput type="password" placeholder="Password" value={ this.state.password } onChange={ e => this.setState( { password: e } ) } onEnter={ () => this.onClick() } autofocus={ false } />
             {
                 this.state.register &&
-                <TextInput type="text" placeholder="Display Name (Agent Smith)" value={ this.state.displayName } onChange={ e => this.setState( { displayName: e } ) } onEnter={ () => this.onClick() } autofocus={ false } />
+                <TextInput ref={ this.displayNameInput } type="text" placeholder="Display Name (Agent Smith)" value={ this.state.displayName } onChange={ e => this.setState( { displayName: e } ) } onEnter={ () => this.onClick() } autofocus={ false } />
             }
             <button type="button" onClick={ () => this.onClick() }> { this.state.register ? "Register" : "Login" } </button>
             <a href="https://www.google.hu/search?q=privacy">Privacy Policy</a>
